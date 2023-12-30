@@ -95,4 +95,22 @@ public class Database : IPersistable
 
         return _feedbacks.Where(fb => fb.UserId.Equals(user.Id));
     }
+    public User GetUserByFeedbackId(Guid feedbackId)
+    {
+        // Find a review with the given identifier in the collection of reviews
+        var feedback = _feedbacks.FirstOrDefault(fb => fb.Id.Equals(feedbackId));
+        // Check if the review was found
+        if (feedback == null)
+            throw new ArgumentException("Feedback not found", nameof(feedbackId));
+        // Find the user by the user ID associated with the found review
+        var user = _users.FirstOrDefault(user => user.Id.Equals(feedback.UserId));
+
+        // Check if the user is found
+        if (user == null)
+            throw new ArgumentException("User not found for the given feedback", nameof(feedbackId));
+
+        // Возвращаем найденного пользователя
+        return user;
+
+    }
 }
