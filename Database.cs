@@ -109,7 +109,11 @@ public class Database : IPersistable
         if (user == null)
             throw new ArgumentException("User not found for the given feedback", nameof(feedbackId));
 
+<<<<<<< HEAD
         
+=======
+        // Возвращаем найденного пользователя
+>>>>>>> findUser
         return user;
 
     }
