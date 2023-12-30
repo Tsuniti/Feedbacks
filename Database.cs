@@ -30,6 +30,31 @@ public class Database : IPersistable
             RealName = realname
         });
     }
+
+    public void DeleteUserById(Guid userId)
+    {
+
+        if (!_users.Any(user => user.Id == userId))
+            throw new ArgumentException("User not exists", nameof(userId));
+
+        foreach (var user in _users)
+        {
+            if (user.Id == userId)
+            {
+                // while feedbacks contains feedback from the user
+                while (_feedbacks.Any(feedback => feedback.UserId == userId))        
+                {
+                    // delete the first feedback found from the user and repeat the cycle
+                    _feedbacks.Remove(_feedbacks.First(feedback => feedback.UserId == userId));
+                }
+
+                _users.Remove(user); // now deleting user
+
+                return; // for does not need to continue, so we can retern
+
+            }
+        }
+    }
     public void AddFeedback(Guid userId, string text, uint rating)
     {
         if (!_users.Any(user => user.Id == userId))
