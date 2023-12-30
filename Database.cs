@@ -95,4 +95,15 @@ public class Database : IPersistable
 
         return _feedbacks.Where(fb => fb.UserId.Equals(user.Id));
     }
+    public double FeedbacksAvarageRating()
+    {
+        uint ratingSum = 0;
+        uint feedbacksAmount = 0;
+        foreach(Feedback feedback in _feedbacks)
+        {
+            ratingSum+=feedback.Rating;
+            feedbacksAmount += 1;
+        }
+        return ratingSum / feedbacksAmount;
+    }
 }

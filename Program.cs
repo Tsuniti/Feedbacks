@@ -12,14 +12,15 @@ var database = new Database();
 
 database.LoadFromFile();
 
-//database.AddFeedback(Guid.Parse("0fae914e-70db-4da0-94dd-ef1fa44402cc"), "I love .net", 5);
-//database.AddFeedback(Guid.Parse("0fae914e-70db-4da0-94dd-ef1fa44402cc"), "qwerty", 2);
-//database.AddFeedback(Guid.Parse("0fae914e-70db-4da0-94dd-ef1fa44402cc"), "Hello world!", 3);
+//database.AddFeedback(Guid.Parse("2d0d0352-49f6-412c-952d-74853f50b1a9"), "I love .net", 5);
+//database.AddFeedback(Guid.Parse("2d0d0352-49f6-412c-952d-74853f50b1a9"), "qwerty", 2);
+//database.AddFeedback(Guid.Parse("0d1b3a81-7586-457e-82db-a660d039ed6c"), "Hello world!", 3);
 
-//database.AddFeedback(Guid.Parse("9561ea7a-6117-4b9c-add1-8c8f8cc189ad"), "Hello world!", 1);
-//database.AddFeedback(Guid.Parse("9561ea7a-6117-4b9c-add1-8c8f8cc189ad"), "Hi world!", 2);
-//database.AddFeedback(Guid.Parse("9561ea7a-6117-4b9c-add1-8c8f8cc189ad"), "aboba", 5);
+//database.AddFeedback(Guid.Parse("d3a75566-4fe1-4124-a0bc-5e4130299f10"), "Hello world!", 1);
+//database.AddFeedback(Guid.Parse("d3a75566-4fe1-4124-a0bc-5e4130299f10"), "Hi world!", 3);
+//database.AddFeedback(Guid.Parse("0d1b3a81-7586-457e-82db-a660d039ed6c"), "aboba", 5);
 
-database.SaveToFile();
-
+//database.SaveToFile();
+double avarage = database.FeedbacksAvarageRating();
+Console.WriteLine($"Avarage rating of feedbacks: {avarage}");
 
