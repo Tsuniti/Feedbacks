@@ -30,6 +30,31 @@ public class Database : IPersistable
             RealName = realname
         });
     }
+
+    public void DeleteUserById(Guid userId)
+    {
+
+        if (!_users.Any(user => user.Id == userId))
+            throw new ArgumentException("User not exists", nameof(userId));
+
+        foreach (var user in _users)
+        {
+            if (user.Id == userId)
+            {
+                // while feedbacks contains feedback from the user
+                while (_feedbacks.Any(feedback => feedback.UserId == userId))
+                {
+                    // delete the first feedback found from the user and repeat the cycle
+                    _feedbacks.Remove(_feedbacks.First(feedback => feedback.UserId == userId));
+                }
+
+                _users.Remove(user); // now deleting user
+
+                return; // for does not need to continue, so we can retern
+
+            }
+        }
+    }
     public void AddFeedback(Guid userId, string text, uint rating)
     {
         if (!_users.Any(user => user.Id == userId))
@@ -64,7 +89,7 @@ public class Database : IPersistable
             string usersJson = JsonSerializer.Serialize(_users, options);
             writer.Write(usersJson);
         }
-        using(var writer = new StreamWriter(_feedbacksFilename))
+        using (var writer = new StreamWriter(_feedbacksFilename))
         {
             var options = new JsonSerializerOptions { WriteIndented = true };
             string feedbacksJson = JsonSerializer.Serialize(_feedbacks, options);
@@ -95,6 +120,7 @@ public class Database : IPersistable
 
         return _feedbacks.Where(fb => fb.UserId.Equals(user.Id));
     }
+    //<<<<<<< HEAD
     public User GetUserByFeedbackId(Guid feedbackId)
     {
         // Find a review with the given identifier in the collection of reviews
@@ -109,12 +135,25 @@ public class Database : IPersistable
         if (user == null)
             throw new ArgumentException("User not found for the given feedback", nameof(feedbackId));
 
-<<<<<<< HEAD
-        
-=======
-        // Возвращаем найденного пользователя
->>>>>>> findUser
-        return user;
+        //<<<<<<< HEAD
 
+        //=======
+        // Возвращаем найденного пользователя
+        //>>>>>>> findUser
+        return user;
     }
-}
+
+        //=======
+        public double FeedbacksAvarageRating()
+        {
+            uint ratingSum = 0;
+            uint feedbacksAmount = 0;
+            foreach (Feedback feedback in _feedbacks)
+            {
+                ratingSum += feedback.Rating;
+                feedbacksAmount += 1;
+            }
+            return ratingSum / feedbacksAmount;
+            //>>>>>>> origin/main
+        }
+    }
